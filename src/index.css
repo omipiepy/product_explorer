@@ -1,7 +1,24 @@
 @import "tailwindcss";
 
-/* so keyboard users can always see where they are */
+/* dark mode is switched on by a "dark" class on <html> */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Tailwind v4 uses the current text colour for borders by default,
+   so set a proper default for both themes */
+@layer base {
+  *, ::after, ::before {
+    border-color: var(--color-gray-200);
+  }
+  .dark *, .dark ::after, .dark ::before {
+    border-color: var(--color-gray-700);
+  }
+}
+
 :focus-visible {
   outline: 2px solid #4f46e5;
   outline-offset: 2px;
+}
+
+.dark :focus-visible {
+  outline-color: #a5b4fc;
 }

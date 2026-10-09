@@ -27,8 +27,8 @@ return (
     <div className="mt-4 flex justify-between">
       <p className="text-lg font-semibold">Subtotal ({itemCount} {itemCount === 1 ? "item" : "items"}): ${subtotal.toFixed(2)}</p>
       <div className="flex justify-between">
-            <dt>Shipping</dt>
-            <dd>Free</dd>
+            <dt>Shipping </dt>
+            <dd> Free</dd>
           </div>
       <div className="flex gap-4">
         <button

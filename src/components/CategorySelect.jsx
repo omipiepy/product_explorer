@@ -15,7 +15,7 @@ const CategorySelect = ({ value, onChange }) => {
         value={value}
         onChange={(e) => onChange(e.target.value)}
         disabled={Boolean(error)}
-        className="w-full rounded border bg-white px-3 py-2"
+        className="w-full rounded border bg-white px-3 py-2 dark:bg-gray-800"
       >
         <option value="">All categories</option>
         {categories.map((c) => (

@@ -10,7 +10,7 @@ const SortSelect = ({ value, onChange }) => {
         id="sort"
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full rounded border bg-white px-3 py-2"
+        className="w-full border rounded bg-white px-3 py-2 dark:bg-gray-800"
       >
         {SORT_OPTIONS.map((option) => (
           <option key={option.value} value={option.value}>

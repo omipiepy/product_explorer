@@ -5,10 +5,10 @@ const CartItem = ({item}) => {
     const { setQuantity, removeItem} = useCart();
 
     return (
-        <li className="flex gap-4 border-b py-4">
+        <li className="flex gap-4 border-b py-4 dark:border-gray-700">
             <div className = "h-24 w-24 shronk-0 bg-gray-100">
                 <img
-                    src={item.image}
+                    src={item.thumbnail}
                     alt={item.title}
                     width="96"
                     height="96"
@@ -20,14 +20,14 @@ const CartItem = ({item}) => {
                 <Link to={`/products/${item.id}`} className="font-medium underline">
                     {item.title}
                 </Link>
-                <p className="text-gray-600">${item.price.toFixed(2)} each</p>
+                <p className="text-gray-600 dark:text-gray-400">${item.price.toFixed(2)} each</p>
 
                 <div className="mt-2 flex items-center gap-2">
                     <button 
                     onClick={ () => setQuantity(item.id, item.quantity - 1)}
                     disabled={item.quantity <= 1}
                     aria-label={`Decrease quantity of ${item.title}`}
-                    className="rounded border bg-gray-100 px-2 py-1 disabled:cursor-not-allowed disabled:opacity-50 h-8 w-8"
+                    className="rounded border px-2 py-1 disabled:cursor-not-allowed disabled:opacity-50 h-8 w-8"
                     >
                         -
                     </button>
@@ -35,7 +35,7 @@ const CartItem = ({item}) => {
                 <button 
                     onClick={ () => setQuantity(item.id, item.quantity + 1)}
                     aria-label={`Increase quantity of ${item.title}`}
-                    className="rounded border bg-gray-100 px-2 py-1 h-8 w-8"
+                    className="rounded border px-2 py-1 h-8 w-8"
                     >
                         +
                 </button>
