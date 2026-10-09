@@ -62,7 +62,7 @@ export const getProductList = async ({ q, category, sort, page }) => {
   return { products: data.products, total: data.total };
 }
 
-export const getProduct = async (id) => {
+export const getProduct = async(id) => {
   const res = await fetch(`${BASE_URL}/products/${id}`);
 
   if (res.status === 404) {

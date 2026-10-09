@@ -4,6 +4,7 @@ import useFetch from "../hooks/useFetch";
 import ImageCollect from "../components/ImageCollect";
 import ReviewList from "../components/ReviewList";
 import { DetailLoading, ErrorMessage } from "../components/States";
+import { useCart} from "../context/CartContext";
 
 function getStockStatus(stock) {
   if (stock === 0) return { text: "Out of stock", style: "bg-red-100 text-red-800" };
@@ -14,7 +15,8 @@ function getStockStatus(stock) {
 const ProductDetail = () => {
   const { id } = useParams();
   const { data: product, loading, error, retry } = useFetch(() => getProduct(id), [id]);
-
+  const {items, addItem} = useCart();
+  const inCart = product ? items.find((item) => item.id === product.id) : null;
   return (
     <div>
       <Link to="/" className="text-indigo-600 underline">
@@ -50,11 +52,16 @@ const ProductDetail = () => {
             <p className="mt-6 text-gray-700">{product.description}</p>
 
             <button
-              disabled={product.stock === 0}
+              onClick={() => addItem(product)}
+              disabled={product.stock === 0 || (inCart && inCart.quantity >= product.stock)}
               className="mt-6 rounded bg-indigo-600 px-6 py-3 text-white disabled:cursor-not-allowed disabled:opacity-50"
             >
               {product.stock === 0 ? "Out of stock" : "Add to cart"}
             </button>
+
+            <p aria-live="polite" className="mt-2 text-sm text-gray-600">
+              {inCart ? `${inCart.quantity} in your cart` : ""}
+            </p>
           </div>
 
           <section className="md:col-span-2" aria-labelledby="reviews-heading">
