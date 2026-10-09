@@ -5,6 +5,8 @@ import ImageCollect from "../components/ImageCollect";
 import ReviewList from "../components/ReviewList";
 import { DetailLoading, ErrorMessage } from "../components/States";
 import { useCart} from "../context/CartContext";
+import { FiArrowLeft } from "react-icons/fi";
+import { FaStar } from "react-icons/fa";
 
 function getStockStatus(stock) {
   if (stock === 0) return { text: "Out of stock", style: "bg-red-100 text-red-800" };
@@ -19,8 +21,8 @@ const ProductDetail = () => {
   const inCart = product ? items.find((item) => item.id === product.id) : null;
   return (
     <div>
-      <Link to="/" className="text-indigo-600 underline">
-        ← Back to products
+      <Link to="/" className="text-indigo-600 underline dark:text-indigo-400">
+        <FiArrowLeft className="inline" aria-hidden="true" /> Back to products
       </Link>
 
       {loading && <DetailLoading />}
@@ -49,7 +51,7 @@ const ProductDetail = () => {
               {getStockStatus(product.stock).text}
             </p>
 
-            <p className="mt-6 text-gray-700">{product.description}</p>
+            <p className="mt-6 text-gray-700 dark:text-gray-300">{product.description}</p>
 
             <button
               onClick={() => addItem(product)}
@@ -59,7 +61,7 @@ const ProductDetail = () => {
               {product.stock === 0 ? "Out of stock" : "Add to cart"}
             </button>
 
-            <p aria-live="polite" className="mt-2 text-sm text-gray-600">
+            <p aria-live="polite" className="mt-2 text-sm text-gray-600 dark:text-gray-400">
               {inCart ? `${inCart.quantity} in your cart` : ""}
             </p>
           </div>
