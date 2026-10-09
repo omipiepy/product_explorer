@@ -1,16 +1,84 @@
-# React + Vite
+# Product Explorer
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Product Explorer is a small online shop browser. You can look through products, search for something, filter by category, sort them, and open any product to see more details and reviews. If you like something, you add it to your cart. Your cart sticks around even after you close the page, and you can switch between a light and a dark look.
+# Features
+- Product List with search/category/sort/pagination
+- Product detail with image gallery and reviews
+- A cart with localStorage
+- Light/dark Theme
 
-Currently, two official plugins are available:
+# Tech Stack
+React
+jsdom
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+# File Structure
+File structure
+product_explorer/
+├─ index.html                # root HTML + inline theme script (prevents FOUC)
+├─ package.json
+├─ vite.config.js            # react + tailwind plugins + vitest config
+├─ src/
+│  ├─ main.jsx               # StrictMode > BrowserRouter > CartProvider > App
+│  ├─ App.jsx                # layout shell + Routes
+│  ├─ index.css              # Tailwind import, dark variant, borders, focus styles
+│  ├─ api/
+│  │  └─ products.js         # DummyJSON API layer
+│  ├─ context/
+│  │  ├─ CartContext.jsx     # CartProvider + useCart hook + persistence
+│  │  └─ cartReducer.js      # (ADD/REMOVE/SET_QUANTITY/CLEAR)
+│  ├─ hooks/
+│  │  ├─ useDebounce.js
+│  │  ├─ useFetch.js
+│  │  ├─ useProductFilters.js
+│  │  └─ useTheme.js
+│  ├─ components/
+│  │  ├─ Header.jsx  Footer.jsx  ThemeToggle.jsx
+│  │  ├─ SearchBar.jsx  SortSelect.jsx  CategorySelect.jsx
+│  │  ├─ ProductGrid.jsx  ProductCard.jsx
+│  │  ├─ Pagination.jsx
+│  │  ├─ ImageCollect.jsx  ReviewList.jsx
+│  │  └─ States.jsx          # Loading, ErrorMessage, Empty, DetailLoading
+│  ├─ pages/
+│  │  ├─ Products.jsx
+│  │  ├─ ProductDetail.jsx
+│  │  ├─ Cart.jsx
+│  │  └─ NotFound.jsx
+│  └─ test/
 
-## React Compiler
+# Architecture and Dataflow
+## Getting data
+- uses DummyJSON
+- api/products.js
+- search + Category 
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## useFetch
+one helper for data loading error and retry
 
-## Expanding the Oxlint configuration
+## FIlters
+- live in URL
+- changing filter resets to page 1
+- Search box waits (debounce) before updating URL
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+## Product List 
+- Reads filters -> fetches -> shows grid or loading/error/empty
+- Pagination only when there's more than one page
+
+## Product detail
+- Fetches one product, shows gallary, rating, stock and reviews
+- "Add to cart" disable when out of stock
+
+## Cart 
+- Reducer handles add/remove/quantity/clear, never mutates
+- Adding an existing item bumps quantity
+- CartContect + useCart() give any component the cart
+- Auto- saves to browser storage, loads back on return
+- Header shows item-count badge at top of cart
+
+## Theme 
+Tailwinf toggles a dark class
+useTheme starts from your save choice
+toggle sun/moon button
+
+# AI coding assistant
+Opencode-testing and for useTheme and ThemeToggle
+Claude-for reviewing project structure and confusing bits like useContext
