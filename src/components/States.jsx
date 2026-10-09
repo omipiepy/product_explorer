@@ -30,4 +30,25 @@ const Empty = ({ text }) => {
   return <p className="p-10 text-center text-gray-600">{text}</p>;
 }
 
-export { Loading, ErrorMessage, Empty };
+const DetailLoading = () => {
+  return (
+    <div className="grid animate-pulse gap-8 md:grid-cols-2">
+      <div>
+        <div className="aspect-square bg-gray-200" />
+        <div className="mt-4 flex gap-2">
+          {[1, 2, 3, 4].map((n) => (
+            <div key={n} className="h-16 w-16 bg-gray-200" />
+          ))}
+        </div>
+      </div>
+      <div>
+        <div className="h-8 w-3/4 bg-gray-200" />
+        <div className="mt-4 h-6 w-1/4 bg-gray-200" />
+        <div className="mt-6 h-4 w-full bg-gray-200" />
+        <div className="mt-2 h-4 w-full bg-gray-200" />
+        <div className="mt-2 h-4 w-2/3 bg-gray-200" />
+      </div>
+    </div>
+  );
+}
+export { Loading, ErrorMessage, Empty, DetailLoading };

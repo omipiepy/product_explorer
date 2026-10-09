@@ -61,3 +61,16 @@ export const getProductList = async ({ q, category, sort, page }) => {
   const data = await getJson(`${url}?${params}`);
   return { products: data.products, total: data.total };
 }
+
+export const getProduct = async (id) => {
+  const res = await fetch(`${BASE_URL}/products/${id}`);
+
+  if (res.status === 404) {
+    throw new Error("Product not found");
+  }
+  if (!res.ok) {
+    throw new Error("Could not load product");
+  }
+
+  return res.json();
+}
