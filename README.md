@@ -165,8 +165,8 @@ Once I drew the component tree on paper and checked what wrapped what, the fix w
 
 I used two AI assistants while building this:
 
-- **opencode** — writing the tests and debugging the CSS dark mode
-- **Claude** — planning the project structure and working through confusing parts, like how `useContext` and the cart's provider/reducer fit together.
+- **opencode** — writing the tests, debugging the CSS dark mode, and also cleanup the code
+- **Claude** — planning the project structure and working through confusing parts and errors, like how `useContext` and the cart's provider/reducer fit together.
 
 Every change was reviewed and verified by running the app, the tests, and the linter — not accepted blindly.
 
